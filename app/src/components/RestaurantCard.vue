@@ -1,39 +1,42 @@
-<script>
-export default {
-  props: {
-    restaurant: {
-      type: Object,
-      required: true,
-    },
-  },
-  emits: ['delete-restaurant'],
-  computed: {
-    statusColor() {
-      switch (this.restaurant.status) {
-        case 'Want to Try':
-          return 'is-warning'
-        case 'Recommended':
-          return 'is-success'
-        case 'Do Not Recommend':
-          return 'is-danger'
-        default:
-          return ''
-      }
-    },
-  },
-  methods: {
-    deleteRestaurant() {
-      this.$emit('delete-restaurant', this.restaurant)
-    },
-  },
+<script setup lang="ts">
+import type {Restaurant} from '@/types'
+import {computed} from 'vue'
+
+type PropTypes = {
+  restaurant: Restaurant
 }
+const props = defineProps<PropTypes>()
+
+const emits = defineEmits<{
+  (e: 'delete-restaurant', restaurant: Restaurant): void
+}>()
+
+const statusColor = computed(() => {
+  if (props.restaurant) {
+    switch (props.restaurant.status) {
+      case 'Want to Try':
+        return 'is-warning'
+      case 'Recommended':
+        return 'is-success'
+      case 'Do Not Recommend':
+        return 'is-danger'
+      default:
+        return ''
+    }
+  }
+
+})
+const deleteRestaurant = () => {
+ emits('delete-restaurant', props.restaurant)
+}
+
 </script>
 
 <template>
   <article class="box">
     <div class="media">
       <aside class="media-left">
-        <img src="https://placehold.jp/150x150.png" alt="" />
+        <img src="https://placehold.jp/150x150.png" alt=""/>
       </aside>
       <div class="media-content">
         <p class="title is-4 is-spaced mb-1">
