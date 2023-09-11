@@ -14,8 +14,8 @@ Watch the full course on the [Frontend Masters website](https://frontendmasters.
 > Note: Make sure to change directories into the `app` directory before running `npm install`.
 
 ```bash
-git clone https://github.com/bencodezen/typescript-and-vue-workshop.git
-cd typescript-and-vue-workshop/app
+git clone https://github.com/saturnua/eat-what-you-want.git
+cd eat-what-you-want/app
 npm install
 ```
 
@@ -28,21 +28,3 @@ npm run dev
 
 ### Global State Management with Pinia
 During the Global State Management with Pinia lesson, the user interface is not reactive. If you delete a restaurant or dish, you need to change views in order to see the updated UI. Follow the steps below to create a reactive interface:
-
-In `RestaurantPage.vue`, import `storeToRefs` from Pinia:
-
-```javscript
-import { storeToRefs } from 'pinia'
-```
-
-Update the `restaurantList` array:
-
-```javascript
-const restaurantList = storeToRefs(restaurantStore).list
-```
-
-In the `filteredRestaurantList` computed property, update the `filter` method:
-```javascript
-return restaurantList.value.filter((restaurant) => { ... })
-```
-

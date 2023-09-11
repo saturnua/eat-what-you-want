@@ -6,15 +6,16 @@ import DishCard from '../components/DishCard.vue'
 import SideMenu from '../components/SideMenu.vue'
 import {useRoute} from "vue-router";
 import {useDishStore} from '@/stores/DishStore'
+import { storeToRefs } from 'pinia'
 
 const filterText = ref('')
 const dishStore = useDishStore()
-const dishList = dishStore.list
+const dishList = storeToRefs(dishStore).list
 
 const showNewForm = ref(false)
 
 const filteredDishList = computed((): Dish[] => {
-  return dishList.filter((dish: { name: string }) => {
+  return dishList.value.filter((dish: { name: string }) => {
     if (dish.name) {
       return dish.name.toLowerCase().includes(filterText.value.toLowerCase())
     } else {
